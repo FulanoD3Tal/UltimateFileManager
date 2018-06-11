@@ -35,6 +35,36 @@ namespace UltimateFileManagerCore
         /// 
         /// </summary>
         /// <param name="files"></param>
+        /// <param name="newNames"></param>
+        /// <param name="extension"></param>
+        /// <returns></returns>
+        public static List<string> RenameFiles(this IEnumerable<string> files, List<string> newNames,string extension)
+        {
+            if (newNames == null)
+            {
+                throw new ArgumentNullException(nameof(newNames));
+            }
+            if (string.IsNullOrEmpty(extension))
+            {
+                throw new ArgumentNullException(nameof(extension),"The extension can not be empty or null");
+            }
+            if (((ICollection<string>)files).Count != newNames.Count)
+            {
+                throw new ArgumentOutOfRangeException(nameof(newNames), "The given names are less that the total of the files");
+            }
+            int i = 0;
+            List<string> newFiles = new List<string>();
+            foreach (string file in files)
+            {
+                newFiles.Add(Path.ChangeExtension(Path.Combine(Path.GetDirectoryName(file), newNames[i]),extension));
+                i++;
+            }
+            return newFiles;
+        }
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="files"></param>
         /// <param name="newExtension"></param>
         /// <returns></returns>
         public static List<string> ChangeExtension(this IEnumerable<string> files, string newExtension)
