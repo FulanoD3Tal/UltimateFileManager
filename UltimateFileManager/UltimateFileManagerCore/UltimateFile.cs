@@ -9,6 +9,27 @@ namespace UltimateFileManagerCore
         /// <summary>
         /// 
         /// </summary>
+        /// <param name="file"></param>
+        /// <param name="newName"></param>
+        /// <returns></returns>
+        public static string RenameFile(this string file, string newName)
+        {
+            if (string.IsNullOrEmpty(newName))
+            {
+                new ArgumentNullException(nameof(newName));
+            }
+            if (string.IsNullOrEmpty(Path.GetExtension(newName)))
+            {
+                return Path.Combine(Path.GetDirectoryName(file),Path.ChangeExtension(newName,Path.GetExtension(file)));
+            }
+            else
+            {
+                return Path.Combine(Path.GetDirectoryName(file), newName);
+            }
+        }
+        /// <summary>
+        /// 
+        /// </summary>
         /// <param name="files"></param>
         /// <param name="newNames"></param>
         /// <returns></returns>
@@ -26,7 +47,7 @@ namespace UltimateFileManagerCore
             List<string> newFiles = new List<string>();
             foreach (string file in files)
             {
-                newFiles.Add(Path.Combine(Path.GetDirectoryName(file), newNames[i]));
+                RenameFile(file, newNames[i]);
                 i++;
             }
             return newFiles;
@@ -38,7 +59,7 @@ namespace UltimateFileManagerCore
         /// <param name="newNames"></param>
         /// <param name="extension"></param>
         /// <returns></returns>
-        public static List<string> RenameFiles(this IEnumerable<string> files, List<string> newNames,string extension)
+        public static List<string> RenameFiles(this IEnumerable<string> files, List<string> newNames, string extension)
         {
             if (newNames == null)
             {
@@ -46,7 +67,7 @@ namespace UltimateFileManagerCore
             }
             if (string.IsNullOrEmpty(extension))
             {
-                throw new ArgumentNullException(nameof(extension),"The extension can not be empty or null");
+                throw new ArgumentNullException(nameof(extension), "The extension can not be empty or null");
             }
             if (((ICollection<string>)files).Count != newNames.Count)
             {
@@ -56,7 +77,7 @@ namespace UltimateFileManagerCore
             List<string> newFiles = new List<string>();
             foreach (string file in files)
             {
-                newFiles.Add(Path.ChangeExtension(Path.Combine(Path.GetDirectoryName(file), newNames[i]),extension));
+                newFiles.Add(Path.ChangeExtension(Path.Combine(Path.GetDirectoryName(file), newNames[i]), extension));
                 i++;
             }
             return newFiles;
