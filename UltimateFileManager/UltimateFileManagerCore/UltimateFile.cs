@@ -101,5 +101,43 @@ namespace UltimateFileManagerCore
             }
             return newFiles;
         }
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="directory"></param>
+        /// <param name="file"></param>
+        /// <returns></returns>
+        public static string ChangeDirectory(string directory, string file)
+        {
+            if (string.IsNullOrEmpty(directory))
+            {
+                throw new ArgumentNullException(nameof(directory));
+            }
+            if (string.IsNullOrEmpty(file))
+            {
+                throw new ArgumentNullException(nameof(file));
+            }
+            return Path.Combine(directory, file);
+        }
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="files"></param>
+        /// <param name="newDirectory"></param>
+        /// <returns></returns>
+        public static List<string> ChangeDirectory(this IEnumerable<string> files, string newDirectory)
+        {
+            if (string.IsNullOrEmpty(newDirectory))
+            {
+                throw new ArgumentNullException(nameof(newDirectory));
+            }
+            List<string> newFiles = new List<string>();
+            foreach (string file in files)
+            {
+                newFiles.Add(ChangeDirectory(newDirectory,file));
+            }
+            return newFiles;
+        }
+
     }
 }
