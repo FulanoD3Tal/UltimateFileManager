@@ -20,7 +20,7 @@ namespace UltimateFileManagerCore
             }
             if (string.IsNullOrEmpty(Path.GetExtension(newName)))
             {
-                return Path.Combine(Path.GetDirectoryName(file),Path.ChangeExtension(newName,Path.GetExtension(file)));
+                return Path.Combine(Path.GetDirectoryName(file), Path.ChangeExtension(newName, Path.GetExtension(file)));
             }
             else
             {
@@ -134,10 +134,24 @@ namespace UltimateFileManagerCore
             List<string> newFiles = new List<string>();
             foreach (string file in files)
             {
-                newFiles.Add(ChangeDirectory(newDirectory,file));
+                newFiles.Add(ChangeDirectory(newDirectory, file));
             }
             return newFiles;
         }
-
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="files"></param>
+        /// <returns></returns>
+        public static long Size(this IEnumerable<string> files)
+        {
+            long total = 0;
+            foreach (string file in files)
+            {
+                FileInfo fileinfo = new FileInfo(file);
+                total += fileinfo.Length;
+            }
+            return total;
+        }
     }
 }
