@@ -20,13 +20,7 @@ namespace UltimateFileManagerCore
         /// <returns></returns>
         public static long Size(this DirectoryInfo directoryInfo)
         {
-            long total = 0;
-            FileInfo[] files = directoryInfo.GetFiles();
-            foreach (FileInfo fileinfo in files)
-            {
-                total += fileinfo.Length;
-            }
-            return total;
+            return Directory.EnumerateFiles(directoryInfo.FullName, "*.*", SearchOption.AllDirectories).Size();
         }
     }
 }

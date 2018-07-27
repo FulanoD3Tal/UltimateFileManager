@@ -153,5 +153,14 @@ namespace UltimateFileManagerCore
             }
             return total;
         }
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="size"></param>
+        /// <returns></returns>
+        public static string ToSize(this long size)
+        {
+            return "";
+        }
     }
 }
