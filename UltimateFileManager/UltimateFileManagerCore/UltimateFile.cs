@@ -160,7 +160,24 @@ namespace UltimateFileManagerCore
         /// <returns></returns>
         public static string ToSize(this long size)
         {
-            return "";
+            long Megabyte = 1000000;
+            long Gibabyte = 1000 * Megabyte;
+            long Terabyte = 1000 * Gibabyte;
+            if (size >= Terabyte)
+            {
+                double result = size / Terabyte;
+                return result.ToString("# Tb");
+            }
+            else if (size >= Gibabyte)
+            {
+                double result = size / Gibabyte;
+                return result.ToString("# Gb");
+            }
+            else
+            {
+                double result = size / Megabyte;
+                return result.ToString("# Mb");
+            }
         }
     }
 }
