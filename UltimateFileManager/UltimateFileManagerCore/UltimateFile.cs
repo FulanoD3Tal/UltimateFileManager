@@ -39,9 +39,9 @@ namespace UltimateFileManagerCore
             {
                 throw new ArgumentNullException(nameof(newNames));
             }
-            if (((ICollection<string>)files).Count != newNames.Count)
+            if (!(((ICollection<string>)files).Count == newNames.Count))
             {
-                throw new ArgumentOutOfRangeException(nameof(newNames), "The given names are less that the total of the files");
+                throw new ArgumentOutOfRangeException(nameof(newNames), "The given names are less or more that the total of the files");
             }
             int i = 0;
             List<string> newFiles = new List<string>();
@@ -69,9 +69,9 @@ namespace UltimateFileManagerCore
             {
                 throw new ArgumentNullException(nameof(extension), "The extension can not be empty or null");
             }
-            if (((ICollection<string>)files).Count != newNames.Count)
+            if (!(((ICollection<string>)files).Count == newNames.Count))
             {
-                throw new ArgumentOutOfRangeException(nameof(newNames), "The given names are less that the total of the files");
+                throw new ArgumentOutOfRangeException(nameof(newNames), "The given names are less or more that the total of the files");
             }
             int i = 0;
             List<string> newFiles = new List<string>();
@@ -117,7 +117,7 @@ namespace UltimateFileManagerCore
             {
                 throw new ArgumentNullException(nameof(file));
             }
-            return Path.Combine(directory, file);
+            return Path.Combine(directory, Path.GetFileName(file));
         }
         /// <summary>
         /// 
