@@ -109,5 +109,10 @@ namespace UltimateFileManagerCore
             }
             return true;
         }
+        public bool CopyDirectory(string origin, string destiny)
+        {
+
+            return true;
+        }
     }
 }

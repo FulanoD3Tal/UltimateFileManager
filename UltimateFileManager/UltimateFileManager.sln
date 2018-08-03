@@ -3,7 +3,9 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
 VisualStudioVersion = 15.0.27428.1
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UltimateFileManagerCore", "UltimateFileManagerCore\UltimateFileManagerCore.csproj", "{C45639FD-5D92-4DB9-9F6E-46A2474C053C}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "UltimateFileManagerCore", "UltimateFileManagerCore\UltimateFileManagerCore.csproj", "{C45639FD-5D92-4DB9-9F6E-46A2474C053C}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Demos", "Demos\Demos.csproj", "{33F49144-3549-494E-B585-53E3695AC924}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -15,6 +17,10 @@ Global
 		{C45639FD-5D92-4DB9-9F6E-46A2474C053C}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{C45639FD-5D92-4DB9-9F6E-46A2474C053C}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{C45639FD-5D92-4DB9-9F6E-46A2474C053C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{33F49144-3549-494E-B585-53E3695AC924}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{33F49144-3549-494E-B585-53E3695AC924}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{33F49144-3549-494E-B585-53E3695AC924}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{33F49144-3549-494E-B585-53E3695AC924}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
