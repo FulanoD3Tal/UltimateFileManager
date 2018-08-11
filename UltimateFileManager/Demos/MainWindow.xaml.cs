@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -55,6 +56,12 @@ namespace Demos
         private void bt_change_directory_Click(object sender, RoutedEventArgs e)
         {
             tb_output.Text = $"Change directory of file:\ninput {tb_file_selected.Text}\noutput {UltimateFile.ChangeDirectory(tb_new_directory.Text,tb_file_selected.Text)}";
+        }
+
+        private void bt_get_size_Click(object sender, RoutedEventArgs e)
+        {
+            FileInfo file_selected = new FileInfo(tb_file_selected.Text);
+            tb_output.Text = $"Get fize of file:\ninput {tb_file_selected.Text}\noutput {file_selected.Length.ToSize()}";
         }
     }
 }

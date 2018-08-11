@@ -11,14 +11,20 @@
         <TabControl Margin="10">
             <TabItem Header="UltimateFile">
                 <Grid >
-                    <TextBox Name="tb_file_selected" HorizontalAlignment="Left" Height="23" Margin="10,7,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="692"/>
-                    <Button Name="bt_selected_file" Content="..." Margin="707,7,10,0" VerticalAlignment="Top" Height="23" Click="bt_selected_file_Click"/>
-                    <TextBlock Name="tb_output" Margin="10,120,10,10" TextWrapping="Wrap"/>
-                    <Button Name="bt_renamed" Content="Rename" Margin="10,35,681,0" VerticalAlignment="Top" Height="23" Click="bt_renamed_Click"/>
-                    <TextBox Name="tb_new_name" Height="23" Margin="90,35,544,0" TextWrapping="Wrap" VerticalAlignment="Top"/>
-                    <Button Name="bt_directory" Content="..." HorizontalAlignment="Left" Margin="325,63,0,0" VerticalAlignment="Top" Width="31" Click="bt_directory_Click" Height="23"/>
-                    <TextBox Name="tb_new_directory" HorizontalAlignment="Left" Height="23" Margin="90,63,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="230"/>
-                    <Button Name="bt_change_directory" Content="Directory" Margin="10,63,681,0" VerticalAlignment="Top" Height="23" Click="bt_change_directory_Click"/>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="89*"/>
+                        <ColumnDefinition Width="242*"/>
+                        <ColumnDefinition Width="435*"/>
+                    </Grid.ColumnDefinitions>
+                    <TextBox Name="tb_file_selected" HorizontalAlignment="Left" Margin="10,7,0,0" TextWrapping="Wrap" Width="692" Grid.ColumnSpan="3" Height="23" VerticalAlignment="Top"/>
+                    <Button Name="bt_selected_file" Content="..." Margin="376.333,7,10,0" VerticalAlignment="Top" Height="23" Click="bt_selected_file_Click" Grid.Column="2"/>
+                    <TextBlock Name="tb_output" Margin="10,120,10,10" TextWrapping="Wrap" Grid.ColumnSpan="3"/>
+                    <Button Name="bt_renamed" Content="Rename" Margin="10,35,0,0" VerticalAlignment="Top" Height="23" Click="bt_renamed_Click" HorizontalAlignment="Left" Width="75"/>
+                    <TextBox Name="tb_new_name" Height="23" Margin="10,35,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Grid.Column="1" HorizontalAlignment="Left" Width="132"/>
+                    <Button Name="bt_directory" Content="..." HorizontalAlignment="Left" Margin="3.333,63,0,0" VerticalAlignment="Top" Width="31" Click="bt_directory_Click" Height="23" Grid.Column="2"/>
+                    <TextBox Name="tb_new_directory" HorizontalAlignment="Left" Height="23" Margin="10,63,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="230" Grid.Column="1"/>
+                    <Button Name="bt_change_directory" Content="Directory" Margin="10,63,0,0" VerticalAlignment="Top" Height="23" Click="bt_change_directory_Click" HorizontalAlignment="Left" Width="75"/>
+                    <Button Name="bt_get_size" Content="Size" Width="75" Margin="10,91,0,0" Click="bt_get_size_Click" Height="24" VerticalAlignment="Top" HorizontalAlignment="Left"/>
                 </Grid>
             </TabItem>
             <TabItem Header="UltimageDirectory">
