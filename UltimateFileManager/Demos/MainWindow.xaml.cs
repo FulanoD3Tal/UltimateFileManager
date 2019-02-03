@@ -46,10 +46,9 @@ namespace Demos
         private void bt_directory_Click(object sender, RoutedEventArgs e)
         {
             FolderBrowserDialog dialog = new FolderBrowserDialog();
-
             if (dialog.ShowDialog() == System.Windows.Forms.DialogResult.OK)
             {
-                tb_new_directory.Text = dialog.SelectedPath;
+                tb_directory_selected.Text = dialog.SelectedPath;
             }
         }
 
@@ -61,7 +60,73 @@ namespace Demos
         private void bt_get_size_Click(object sender, RoutedEventArgs e)
         {
             FileInfo file_selected = new FileInfo(tb_file_selected.Text);
-            tb_output.Text = $"Get fize of file:\ninput {tb_file_selected.Text}\noutput {file_selected.Length.ToSize()}";
+            tb_output.Text = $"Get size of file:\ninput {tb_file_selected.Text}\noutput {file_selected.Length.ToSize()}";
+        }
+
+        private void bt_size_directory_Click(object sender, RoutedEventArgs e)
+        {
+            tb_output_directory.Text = $"Get size of directory:\ninput {tb_directory_selected.Text}\noutput {tb_directory_selected.Text.Size().ToSize()}";
+        }
+
+        private void bt_selected_files_Click(object sender, RoutedEventArgs e)
+        {
+            OpenFileDialog dialog = new OpenFileDialog()
+            {
+               Multiselect = true
+            };
+            if (dialog.ShowDialog() == System.Windows.Forms.DialogResult.OK)
+            {
+                string[] files = dialog.FileNames;
+                lb_selected_files.ItemsSource = files.ToList();
+            }
+        }
+
+        private void bt_change_directory_files_Click(object sender, RoutedEventArgs e)
+        {
+            FolderBrowserDialog dialog = new FolderBrowserDialog();
+            if (dialog.ShowDialog() == System.Windows.Forms.DialogResult.OK)
+            {
+                List<string> files = (List<string>)lb_selected_files.ItemsSource;
+                lb_output_files.ItemsSource = files.ChangeDirectory(dialog.SelectedPath);
+            }
+        }
+
+        private void bt_new_names_Click(object sender, RoutedEventArgs e)
+        {
+            string[] new_names = tb_new_names.Text.Replace("\r\n","\n").Split('\n');
+            List<string> files = (List<string>)lb_selected_files.ItemsSource;
+            lb_output_files.ItemsSource = files.RenameFiles(new_names.ToList());
+        }
+
+        private void bt_change_extension_files_Click(object sender, RoutedEventArgs e)
+        {
+            List<string> files = (List<string>)lb_selected_files.ItemsSource;
+            lb_output_files.ItemsSource = files.ChangeExtension(tb_new_extension_files.Text);
+        }
+
+        private void bt_selected_file_copy_Click(object sender, RoutedEventArgs e)
+        {
+            OpenFileDialog dialog = new OpenFileDialog();
+            if (dialog.ShowDialog() == System.Windows.Forms.DialogResult.OK)
+            {
+                tb_file_to_copy.Text = dialog.FileName;
+            }
+        }
+
+        private void bt_copy_file_Click(object sender, RoutedEventArgs e)
+        {
+            FolderBrowserDialog dialog = new FolderBrowserDialog();
+            if (dialog.ShowDialog() == System.Windows.Forms.DialogResult.OK)
+            {
+                FileManager fm = new FileManager();
+                fm.ProgressUpdatedEvent += Fm_ProgressUpdatedEvent;
+                fm.CopyFile(tb_file_to_copy.Text,UltimateFile.ChangeDirectory(dialog.SelectedPath, tb_file_to_copy.Text));
+            }
+        }
+
+        private void Fm_ProgressUpdatedEvent(object sender, FileProgressUpdatedArgs e)
+        {
+            Console.WriteLine($"{e.OriginFile}-{e.DestinyFile}-{e.BytesProcessed}-{e.TotalBytes}");
         }
     }
 }

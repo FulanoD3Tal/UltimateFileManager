@@ -27,8 +27,47 @@
                     <Button Name="bt_get_size" Content="Size" Width="75" Margin="10,91,0,0" Click="bt_get_size_Click" Height="24" VerticalAlignment="Top" HorizontalAlignment="Left"/>
                 </Grid>
             </TabItem>
-            <TabItem Header="UltimageDirectory">
+            <TabItem Header="UltimateDirectory">
                 <Grid >
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="53*"/>
+                        <RowDefinition Height="46*"/>
+                        <RowDefinition Height="272*"/>
+                    </Grid.RowDefinitions>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="106*"/>
+                        <ColumnDefinition Width="573*"/>
+                        <ColumnDefinition Width="87*"/>
+                    </Grid.ColumnDefinitions>
+                    <Button Name="bt_directory_selected" Content="..." Grid.Column="2" HorizontalAlignment="Left" Margin="10,13,0,0" VerticalAlignment="Top" Width="67" Height="23" Click="bt_directory_Click"/>
+                    <TextBox Name="tb_directory_selected" Grid.ColumnSpan="2" HorizontalAlignment="Left" Height="23" Margin="10,13,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="659"/>
+                    <Button Name="bt_size_directory" Content="Size" HorizontalAlignment="Left" Margin="10,10,0,0" Grid.Row="1" VerticalAlignment="Top" Width="86" Height="26" Click="bt_size_directory_Click" />
+                    <TextBlock Name="tb_output_directory" HorizontalAlignment="Left" Margin="10,10,0,0" Grid.Row="2" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Grid.ColumnSpan="3" Height="252" Width="746"/>
+
+                </Grid>
+            </TabItem>
+            <TabItem Header="MultipleFiles">
+                <Grid>
+                    <ListBox Name="lb_selected_files" HorizontalAlignment="Left" Height="298" Margin="10,40,0,0" VerticalAlignment="Top" Width="226"/>
+                    <Button Name="bt_selected_files" Content="..." HorizontalAlignment="Left" Margin="10,342,0,0" VerticalAlignment="Top" Width="226" Click="bt_selected_files_Click"/>
+                    <Label Content="Input Files" HorizontalAlignment="Left" Margin="10,9,0,0" VerticalAlignment="Top" Width="226"/>
+                    <ListBox Name="lb_output_files" HorizontalAlignment="Left" Height="297" Margin="516,40,0,0" VerticalAlignment="Top" Width="240"/>
+                    <Label Content="Output Files" HorizontalAlignment="Left" Margin="516,9,0,0" VerticalAlignment="Top" Width="240"/>
+                    <Button Name="bt_change_directory_files" Content="Change directory" HorizontalAlignment="Left" Margin="241,40,0,0" VerticalAlignment="Top" Width="270" Click="bt_change_directory_files_Click"/>
+                    <TextBox Name="tb_new_names" TextWrapping="Wrap" Text="" Margin="241,65,255,182" AcceptsTab="True" AcceptsReturn="True"/>
+                    <Button Name="bt_new_names" HorizontalAlignment="Left" VerticalAlignment="Top" Content="New names" Margin="241,194,0,0" Width="270" Click="bt_new_names_Click"/>
+                    <TextBox Name="tb_new_extension_files" HorizontalAlignment="Left" Height="23" Margin="241,219,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="144"/>
+                    <Button Name="bt_change_extension_files" Content="Change extension" HorizontalAlignment="Left" Margin="390,219,0,0" VerticalAlignment="Top" Width="121" Height="23" Click="bt_change_extension_files_Click"/>
+
+                </Grid>
+            </TabItem>
+            <TabItem Header="FileManager">
+                <Grid>
+                    <TextBox Name="tb_file_to_copy" HorizontalAlignment="Left" Height="23" Margin="10,10,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="666"/>
+                    <Button Name="bt_selected_file_copy" Content="..." HorizontalAlignment="Left" Margin="681,10,0,0" VerticalAlignment="Top" Width="75" Height="23" Click="bt_selected_file_copy_Click"/>
+                    <Label Content="only experimental use. Use only test files" HorizontalAlignment="Left" Margin="10,38,0,0" VerticalAlignment="Top" Width="746"/>
+                    <Button Name="bt_copy_file" Content="Copy file" HorizontalAlignment="Left" Margin="10,69,0,0" VerticalAlignment="Top" Width="75" Click="bt_copy_file_Click"/>
+                    <ProgressBar Name="pb_copy_file" HorizontalAlignment="Left" Height="20" Margin="90,69,0,0" VerticalAlignment="Top" Width="666"/>
 
                 </Grid>
             </TabItem>
