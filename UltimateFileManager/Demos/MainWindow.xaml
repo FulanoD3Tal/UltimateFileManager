@@ -67,8 +67,11 @@
                     <Button Name="bt_selected_file_copy" Content="..." HorizontalAlignment="Left" Margin="681,10,0,0" VerticalAlignment="Top" Width="75" Height="23" Click="bt_selected_file_copy_Click"/>
                     <Label Content="only experimental use. Use only test files" HorizontalAlignment="Left" Margin="10,38,0,0" VerticalAlignment="Top" Width="746"/>
                     <Button Name="bt_copy_file" Content="Copy file" HorizontalAlignment="Left" Margin="10,69,0,0" VerticalAlignment="Top" Width="75" Click="bt_copy_file_Click"/>
-                    <ProgressBar Name="pb_copy_file" HorizontalAlignment="Left" Height="20" Margin="90,69,0,0" VerticalAlignment="Top" Width="666"/>
-
+                    <ProgressBar Name="pb_copy_file" HorizontalAlignment="Left" Height="20" Margin="90,69,0,0" VerticalAlignment="Top" Width="666" IsIndeterminate="False" Maximum="100"/>
+                    <Label Name="copy_file_info" Content="Progress" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="90,94,0,0" Width="666" HorizontalContentAlignment="Center"/>
+                    <Button Name="bt_move_file" Content="Move file" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="10,128,0,0" Width="75" Height="20" Click="Bt_move_file_Click"/>
+                    <ProgressBar Name="pb_move_file" HorizontalAlignment="Left" VerticalAlignment="Top" Width="666" Height="20" Margin="90,128,0,0"/>
+                    <Label Name="move_file_info" Content="Progress" HorizontalAlignment="Left" VerticalAlignment="Top" Width="666" HorizontalContentAlignment="Center" Margin="90,153,0,0"/>
                 </Grid>
             </TabItem>
         </TabControl>

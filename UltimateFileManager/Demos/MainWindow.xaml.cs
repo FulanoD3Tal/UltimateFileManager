@@ -113,20 +113,59 @@ namespace Demos
             }
         }
 
-        private void bt_copy_file_Click(object sender, RoutedEventArgs e)
+        private async void bt_copy_file_Click(object sender, RoutedEventArgs e)
         {
             FolderBrowserDialog dialog = new FolderBrowserDialog();
             if (dialog.ShowDialog() == System.Windows.Forms.DialogResult.OK)
             {
                 FileManager fm = new FileManager();
-                fm.ProgressUpdatedEvent += Fm_ProgressUpdatedEvent;
-                fm.CopyFile(tb_file_to_copy.Text,UltimateFile.ChangeDirectory(dialog.SelectedPath, tb_file_to_copy.Text));
+                fm.ProgressUpdatedEvent += Copy_ProgressUpdatedEvent;
+                bool x = await fm.CopyFileAsync(
+                    tb_file_to_copy.Text,
+                    UltimateFile.ChangeDirectory(dialog.SelectedPath, tb_file_to_copy.Text)
+                    );
             }
         }
 
-        private void Fm_ProgressUpdatedEvent(object sender, FileProgressUpdatedArgs e)
+        private void Copy_ProgressUpdatedEvent(object sender, FileProgressUpdatedArgs e)
         {
-            Console.WriteLine($"{e.OriginFile}-{e.DestinyFile}-{e.BytesProcessed}-{e.TotalBytes}");
+            Console.WriteLine($"{e.BytesProcessed}-{e.TotalBytes}");
+            copy_file_info.Dispatcher.Invoke(() => {
+                copy_file_info.Content =
+                $"Copy file: {System.IO.Path.GetFileName(e.OriginFile)} [{UltimateFile.ToSize(e.BytesProcessed)}/{UltimateFile.ToSize(e.TotalBytes)}]";
+            });
+            pb_copy_file.Dispatcher.Invoke(() =>
+            {
+                pb_copy_file.Value = (e.BytesProcessed * 100)/e.TotalBytes;
+            });
+
+        }
+
+        private async void Bt_move_file_Click(object sender, RoutedEventArgs e)
+        {
+            FolderBrowserDialog dialog = new FolderBrowserDialog();
+            if (dialog.ShowDialog() == System.Windows.Forms.DialogResult.OK)
+            {
+                FileManager fm = new FileManager();
+                fm.ProgressUpdatedEvent += Move_ProgressUpdatedEvent; ;
+                bool x =await fm.MoveFileAsync(
+                    tb_file_to_copy.Text,
+                    UltimateFile.ChangeDirectory(dialog.SelectedPath, tb_file_to_copy.Text)
+                    );
+            }
+        }
+
+        private void Move_ProgressUpdatedEvent(object sender, FileProgressUpdatedArgs e)
+        {
+            Console.WriteLine($"{e.BytesProcessed}-{e.TotalBytes}");
+            move_file_info.Dispatcher.Invoke(() => {
+                move_file_info.Content =
+                $"Move file: {System.IO.Path.GetFileName(e.OriginFile)} [{UltimateFile.ToSize(e.BytesProcessed)}/{UltimateFile.ToSize(e.TotalBytes)}]";
+            });
+            pb_move_file.Dispatcher.Invoke(() =>
+            {
+                pb_move_file.Value = (e.BytesProcessed * 100) / e.TotalBytes;
+            });
         }
     }
 }

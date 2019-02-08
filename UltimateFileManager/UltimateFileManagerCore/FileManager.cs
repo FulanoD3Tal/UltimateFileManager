@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Text;
+using System.Threading.Tasks;
 
 namespace UltimateFileManagerCore
 {
@@ -34,6 +35,16 @@ namespace UltimateFileManagerCore
         /// <param name="origin"></param>
         /// <param name="destiny"></param>
         /// <returns></returns>
+        public async Task<bool> CopyFileAsync(string origin,string destiny)
+        {
+            return await Task<bool>.Run(() => CopyFile(origin, destiny));
+        }
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="origin"></param>
+        /// <param name="destiny"></param>
+        /// <returns></returns>
         public bool MoveFile(string origin, string destiny)
         {
             CopyFile(origin, destiny);
@@ -42,6 +53,11 @@ namespace UltimateFileManagerCore
                 File.Delete(origin);
             }
             return true;
+        }
+
+        public async Task<bool> MoveFileAsync(string origin,string destiny)
+        {
+            return await Task<bool>.Run(() => MoveFile(origin,destiny));
         }
         /// <summary>
         /// 
