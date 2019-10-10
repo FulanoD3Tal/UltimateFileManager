@@ -29,7 +29,7 @@ namespace Demos
 
         private void bt_renamed_Click(object sender, RoutedEventArgs e)
         {
-                
+
             tb_output.Text = $"Rename a file:\ninput {tb_file_selected.Text}\noutput {tb_file_selected.Text.RenameFile(tb_new_name.Text)}";
         }
 
@@ -44,7 +44,7 @@ namespace Demos
 
         private void bt_change_directory_Click(object sender, RoutedEventArgs e)
         {
-            tb_output.Text = $"Change directory of file:\ninput {tb_file_selected.Text}\noutput {UltimateFile.ChangeDirectory(tb_new_directory.Text,tb_file_selected.Text)}";
+            tb_output.Text = $"Change directory of file:\ninput {tb_file_selected.Text}\noutput {UltimateFile.ChangeDirectory(tb_new_directory.Text, tb_file_selected.Text)}";
         }
 
         private void bt_get_size_Click(object sender, RoutedEventArgs e)
@@ -62,7 +62,7 @@ namespace Demos
         {
             OpenFileDialog dialog = new OpenFileDialog()
             {
-               Multiselect = true
+                Multiselect = true
             };
             if (dialog.ShowDialog() == System.Windows.Forms.DialogResult.OK)
             {
@@ -83,7 +83,7 @@ namespace Demos
 
         private void bt_new_names_Click(object sender, RoutedEventArgs e)
         {
-            string[] new_names = tb_new_names.Text.Replace("\r\n","\n").Split('\n');
+            string[] new_names = tb_new_names.Text.Replace("\r\n", "\n").Split('\n');
             List<string> files = (List<string>)lb_selected_files.ItemsSource;
             lb_output_files.ItemsSource = files.RenameFiles(new_names.ToList());
         }
@@ -120,13 +120,14 @@ namespace Demos
         private void Copy_ProgressUpdatedEvent(object sender, FileProgressUpdatedArgs e)
         {
             Console.WriteLine($"{e.BytesProcessed}-{e.TotalBytes}");
-            copy_file_info.Dispatcher.Invoke(() => {
+            copy_file_info.Dispatcher.Invoke(() =>
+            {
                 copy_file_info.Content =
                 $"Copy file: {System.IO.Path.GetFileName(e.OriginFile)} [{UltimateFile.ToSize(e.BytesProcessed)}/{UltimateFile.ToSize(e.TotalBytes)}]";
             });
             pb_copy_file.Dispatcher.Invoke(() =>
             {
-                pb_copy_file.Value = (e.BytesProcessed * 100)/e.TotalBytes;
+                pb_copy_file.Value = (e.BytesProcessed * 100) / e.TotalBytes;
             });
 
         }
@@ -138,7 +139,7 @@ namespace Demos
             {
                 FileManager fm = new FileManager();
                 fm.ProgressUpdatedEvent += Move_ProgressUpdatedEvent; ;
-                bool x =await fm.MoveFileAsync(
+                bool x = await fm.MoveFileAsync(
                     tb_file_to_copy.Text,
                     UltimateFile.ChangeDirectory(dialog.SelectedPath, tb_file_to_copy.Text)
                     );
@@ -148,7 +149,8 @@ namespace Demos
         private void Move_ProgressUpdatedEvent(object sender, FileProgressUpdatedArgs e)
         {
             Console.WriteLine($"{e.BytesProcessed}-{e.TotalBytes}");
-            move_file_info.Dispatcher.Invoke(() => {
+            move_file_info.Dispatcher.Invoke(() =>
+            {
                 move_file_info.Content =
                 $"Move file: {System.IO.Path.GetFileName(e.OriginFile)} [{UltimateFile.ToSize(e.BytesProcessed)}/{UltimateFile.ToSize(e.TotalBytes)}]";
             });

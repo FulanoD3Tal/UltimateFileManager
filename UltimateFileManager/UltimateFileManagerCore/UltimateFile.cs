@@ -144,12 +144,12 @@ namespace UltimateFileManagerCore
                 double result = size / Gibabyte;
                 return result.ToString("#.## Gb");
             }
-            else if(size >= Megabyte)
+            else if (size >= Megabyte)
             {
                 double result = size / Megabyte;
                 return result.ToString("#.## Mb");
             }
-            else if(size >= Kilobyte)
+            else if (size >= Kilobyte)
             {
                 double result = size / 1000;
                 return result.ToString("#.## Kb");

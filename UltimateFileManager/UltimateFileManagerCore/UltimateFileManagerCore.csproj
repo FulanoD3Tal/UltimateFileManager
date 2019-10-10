@@ -2,6 +2,11 @@
 
   <PropertyGroup>
     <TargetFramework>netstandard2.0</TargetFramework>
+    <Authors>FulanoD3Tal</Authors>
+    <PackageId>FulanoD3Tal.UltimateFileManagerCore</PackageId>
+    <Description>C# library to manipulate files and folders in Windows enviroment</Description>
+    <PackageTags>csharp,c,net,standard,netstandard,file,filesystem,filemanager,manager,ultimate,core,files,folder</PackageTags>
+    <Product>UltimateFileManagerCore</Product>
   </PropertyGroup>
 
 </Project>

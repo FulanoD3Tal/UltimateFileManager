@@ -14,7 +14,7 @@ namespace UltimateFileManagerCore
         /// <param name="origin"></param>
         /// <param name="destiny"></param>
         /// <returns></returns>
-        public bool CopyFile(string origin,string destiny)
+        public bool CopyFile(string origin, string destiny)
         {
             using (FileStream fsorigin = new FileStream(origin, FileMode.Open), fsdestiny = new FileStream(destiny, FileMode.Create))
             {
@@ -24,7 +24,7 @@ namespace UltimateFileManagerCore
                 {
                     fsdestiny.Write(buffer, 0, readBytes);
                     ProgressUpdatedEvent?.Invoke(this, new FileProgressUpdatedArgs(origin, destiny, fsorigin.Length, fsorigin.Position));
-                } 
+                }
             }
             return true;
         }
@@ -34,7 +34,7 @@ namespace UltimateFileManagerCore
         /// <param name="origin"></param>
         /// <param name="destiny"></param>
         /// <returns></returns>
-        public async Task<bool> CopyFileAsync(string origin,string destiny)
+        public async Task<bool> CopyFileAsync(string origin, string destiny)
         {
             return await Task<bool>.Run(() => CopyFile(origin, destiny));
         }
@@ -54,9 +54,9 @@ namespace UltimateFileManagerCore
             return true;
         }
 
-        public async Task<bool> MoveFileAsync(string origin,string destiny)
+        public async Task<bool> MoveFileAsync(string origin, string destiny)
         {
-            return await Task<bool>.Run(() => MoveFile(origin,destiny));
+            return await Task<bool>.Run(() => MoveFile(origin, destiny));
         }
         /// <summary>
         /// 
@@ -75,7 +75,7 @@ namespace UltimateFileManagerCore
             long total = origin.Size();
             for (int i = 0; i < origin.Count; i++)
             {
-                using (FileStream fsorigin = new FileStream(origin[i],FileMode.Open), fsdestiny = new FileStream(destiny[i], FileMode.Create))
+                using (FileStream fsorigin = new FileStream(origin[i], FileMode.Open), fsdestiny = new FileStream(destiny[i], FileMode.Create))
                 {
                     byte[] buffer = new byte[1048756];
                     int readBytes;
@@ -84,7 +84,7 @@ namespace UltimateFileManagerCore
                         fsdestiny.Write(buffer, 0, readBytes);
                         progress += fsorigin.Position;
                         ProgressUpdatedEvent?.Invoke(this, new FileProgressUpdatedArgs(origin[i], destiny[i], total, progress));
-                    }  
+                    }
                 }
             }
             return true;
@@ -124,10 +124,37 @@ namespace UltimateFileManagerCore
             }
             return true;
         }
-        public bool CopyDirectory(string origin, string destiny)
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="origin"></param>
+        /// <param name="destiny"></param>
+        /// <param name="createDestiny"></param>
+        /// <returns></returns>
+        public bool CopyDirectory(string origin, string destiny, bool createDestiny = false)
         {
-
-            return true;
+            if (Directory.Exists(origin))
+            {
+                throw new ArgumentNullException(nameof(origin));
+            }
+            if (createDestiny == false && !Directory.Exists(destiny))
+            {
+                throw new ArgumentNullException(nameof(destiny));
+            }
+            if (createDestiny)
+            {
+                Directory.CreateDirectory(destiny);
+            }
+            IEnumerable<string> origin_files = Directory.EnumerateFiles(origin, "*", SearchOption.AllDirectories);
+            List<string> new_files = new List<string>();
+            foreach (string origin_file in origin_files)
+            {
+                string directory = new FileInfo(origin_file).DirectoryName;
+                string new_file = UltimateFile.ChangeDirectory(directory, Path.GetFileName(origin_file));
+                new_files.Add(new_file);
+            }
+            
+            return CopyFiles((List<string>)origin_files,new_files);
         }
     }
 }
