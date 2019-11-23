@@ -74,6 +74,46 @@
                     <Label Name="move_file_info" Content="Progress" HorizontalAlignment="Left" VerticalAlignment="Top" Width="666" HorizontalContentAlignment="Center" Margin="90,153,0,0"/>
                 </Grid>
             </TabItem>
+            <TabItem Header="FileManager">
+                <Grid>
+                    <ListBox Name="lb_files_selected_cp_mv"  HorizontalAlignment="Left" Width="187" Margin="10,10,0,118"></ListBox>
+                    <ListBox Name="lb_new_files_selected_cp_mv" Margin="218,10,360,118"/>
+                    <Button Name="btn_select_copy_files" Content="Select files" Height="23" Margin="10,264,569,84" Click="Btn_select_copy_files_Click"></Button>
+                    <Button Name="btn_select_copy_files_folder" Content="Select folder" Height="23" Margin="219,264,360,84" Click="Btn_select_copy_files_folder_Click"></Button>
+                    <Button Name="btn_copy_files" Content="Copy files" Margin="411,10,10,338" Click="Btn_copy_files_Click"/>
+                    <Button Name="btn_move_files" Content="Move files" Margin="411,134,10,214" Click="Btn_move_files_Click"/>
+                    <ProgressBar Name="pb_copy_files" Margin="411,38,10,310"/>
+                    <Label Name="lb_copy_files" Content="Progress" HorizontalContentAlignment="Center" Margin="411,66,10,278"/>
+                    <ProgressBar Name="pb_move_files" Margin="411,162,10,186"/>
+                    <Label Name="lb_move_files" Content="Progress" HorizontalContentAlignment="Center" Margin="411,190,10,154"/>
+                </Grid>
+            </TabItem>
+            <TabItem Header="Copy Directory">
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="381*"/>
+                        <ColumnDefinition Width="198*"/>
+                        <ColumnDefinition Width="187*"/>
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="9*"/>
+                        <RowDefinition Height="37*"/>
+                        <RowDefinition Height="23*"/>
+                        <RowDefinition Height="43*"/>
+                        <RowDefinition Height="50*"/>
+                        <RowDefinition Height="41*"/>
+                        <RowDefinition Height="168*"/>
+                    </Grid.RowDefinitions>
+                    <TextBox Name="tb_copy_directory" Margin="10,10,10,5" Grid.Row="1" Grid.ColumnSpan="2"></TextBox>
+                    <Button Name="btn_select_copy_directory" Content="Select directory" Margin="10,10,10,5" Grid.Column="2" Grid.Row="1" Click="Btn_select_copy_directory_Click"/>
+                    <ProgressBar Name="pb_copy_directory" Grid.ColumnSpan="2" Margin="14,10,6,0" Grid.Row="3" Height="22" VerticalAlignment="Top"/>
+                    <Button Name="btn_copy_directory" Content="Copy directory" Margin="10,10,10,11" Grid.Column="2" Grid.Row="3" Click="Btn_copy_directory_Click"/>
+                    <Label Name="lb_copy_directory" Content="Progress" HorizontalContentAlignment="Center" Margin="14,10,10,14" Grid.Row="4" Grid.ColumnSpan="2"/>
+                    <ProgressBar Name="pb_move_directory" Grid.ColumnSpan="2" Margin="14,9,6,0" Grid.Row="5" Height="22" VerticalAlignment="Top"/>
+                    <Button Name="btn_move_directory" Content="Move directory" Margin="10,9,10,10" Grid.Column="2" Grid.Row="5" Click="Btn_move_directory_Click"/>
+                    <Label Name="lb_move_directory" Content="Progress" HorizontalContentAlignment="Center" Margin="14,10,10,132" Grid.Row="6" Grid.ColumnSpan="2"/>
+                </Grid>
+            </TabItem>
         </TabControl>
 
     </Grid>

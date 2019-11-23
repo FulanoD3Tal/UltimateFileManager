@@ -36,7 +36,7 @@ namespace UltimateFileManagerCore
         /// <returns></returns>
         public async Task<bool> CopyFileAsync(string origin, string destiny)
         {
-            return await Task<bool>.Run(() => CopyFile(origin, destiny));
+            return await Task.Run(() => CopyFile(origin, destiny));
         }
         /// <summary>
         /// 
@@ -56,7 +56,7 @@ namespace UltimateFileManagerCore
 
         public async Task<bool> MoveFileAsync(string origin, string destiny)
         {
-            return await Task<bool>.Run(() => MoveFile(origin, destiny));
+            return await Task.Run(() => MoveFile(origin, destiny));
         }
         /// <summary>
         /// 
@@ -82,12 +82,22 @@ namespace UltimateFileManagerCore
                     while ((readBytes = fsorigin.Read(buffer, 0, buffer.Length)) > 0)
                     {
                         fsdestiny.Write(buffer, 0, readBytes);
-                        progress += fsorigin.Position;
+                        progress += readBytes;
                         ProgressUpdatedEvent?.Invoke(this, new FileProgressUpdatedArgs(origin[i], destiny[i], total, progress));
                     }
                 }
             }
             return true;
+        }
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="origin"></param>
+        /// <param name="destiny"></param>
+        /// <returns></returns>
+        public async Task<bool> CopyFilesAsync(List<string> origin, List<string> destiny)
+        {
+            return await Task.Run(() => CopyFiles(origin,destiny));
         }
         /// <summary>
         /// 
@@ -113,7 +123,7 @@ namespace UltimateFileManagerCore
                     while ((readBytes = fsorigin.Read(buffer, 0, buffer.Length)) > 0)
                     {
                         fsdestiny.Write(buffer, 0, readBytes);
-                        progress += fsorigin.Position;
+                        progress += readBytes;
                         ProgressUpdatedEvent?.Invoke(this, new FileProgressUpdatedArgs(origin[i], destiny[i], total, progress));
                     }
                 }
@@ -129,32 +139,101 @@ namespace UltimateFileManagerCore
         /// </summary>
         /// <param name="origin"></param>
         /// <param name="destiny"></param>
+        /// <returns></returns>
+        public async Task<bool> MoveFilesAsync(List<string> origin, List<string> destiny)
+        {
+            return await Task.Run(() => MoveFiles(origin, destiny));
+        }
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="origin"></param>
+        /// <param name="destiny"></param>
         /// <param name="createDestiny"></param>
         /// <returns></returns>
-        public bool CopyDirectory(string origin, string destiny, bool createDestiny = false)
+        public bool CopyDirectory(string origin, string destiny)
         {
-            if (Directory.Exists(origin))
+            if (!Directory.Exists(origin))
             {
                 throw new ArgumentNullException(nameof(origin));
             }
-            if (createDestiny == false && !Directory.Exists(destiny))
+            if (!Directory.Exists(destiny))
             {
                 throw new ArgumentNullException(nameof(destiny));
-            }
-            if (createDestiny)
-            {
-                Directory.CreateDirectory(destiny);
             }
             IEnumerable<string> origin_files = Directory.EnumerateFiles(origin, "*", SearchOption.AllDirectories);
             List<string> new_files = new List<string>();
             foreach (string origin_file in origin_files)
             {
-                string directory = new FileInfo(origin_file).DirectoryName;
+                string directory = new FileInfo(origin_file).DirectoryName.Replace(origin,destiny);
                 string new_file = UltimateFile.ChangeDirectory(directory, Path.GetFileName(origin_file));
+                if (!Directory.Exists(directory))
+                {
+                    Directory.CreateDirectory(directory); 
+                }
                 new_files.Add(new_file);
             }
             
-            return CopyFiles((List<string>)origin_files,new_files);
+            return CopyFiles(new List<string>(origin_files),new_files);
+        }
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="origin"></param>
+        /// <param name="destiny"></param>
+        /// <returns></returns>
+        public async Task<bool> CopyDirectoryAsync(string origin, string destiny)
+        {
+            return await Task.Run(() => CopyDirectory(origin,destiny));
+        }
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="origin"></param>
+        /// <param name="destiny"></param>
+        /// <returns></returns>
+        public bool MoveDirectory(string origin, string destiny)
+        {
+            if (!Directory.Exists(origin))
+            {
+                throw new ArgumentNullException(nameof(origin));
+            }
+            if (!Directory.Exists(destiny))
+            {
+                throw new ArgumentNullException(nameof(destiny));
+            }
+            IEnumerable<string> origin_files = Directory.EnumerateFiles(origin, "*", SearchOption.AllDirectories);
+            List<string> new_files = new List<string>();
+            foreach (string origin_file in origin_files)
+            {
+                string directory = new FileInfo(origin_file).DirectoryName.Replace(origin, destiny);
+                string new_file = UltimateFile.ChangeDirectory(directory, Path.GetFileName(origin_file));
+                if (!Directory.Exists(directory))
+                {
+                    Directory.CreateDirectory(directory);
+                }
+                new_files.Add(new_file);
+            }
+            if(MoveFiles(new List<string>(origin_files), new_files))
+                Directory.Delete(origin,true);
+            if (Directory.Exists(origin))
+            {
+                return false;
+            }
+            else
+            {
+                return true;
+            }
+        }
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="origin"></param>
+        /// <param name="destiny"></param>
+        /// <returns></returns>
+        public async Task<bool> MoveDirectoryAsync(string origin, string destiny)
+        {
+            return await Task.Run(() => MoveDirectory(origin, destiny));
         }
     }
 }
