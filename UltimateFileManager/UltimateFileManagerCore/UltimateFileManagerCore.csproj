@@ -7,6 +7,11 @@
     <Description>C# library to manipulate files and folders in Windows enviroment</Description>
     <PackageTags>csharp,c,net,standard,netstandard,file,filesystem,filemanager,manager,ultimate,core,files,folder</PackageTags>
     <Product>UltimateFileManagerCore</Product>
+    <AssemblyVersion>1.0.0.0</AssemblyVersion>
+    <FileVersion>1.0.0.0</FileVersion>
+    <Version>1.1.0</Version>
+    <RepositoryUrl>https://github.com/FulanoD3Tal/UltimateFileManager</RepositoryUrl>
+    <RepositoryType>git</RepositoryType>
   </PropertyGroup>
 
 </Project>
